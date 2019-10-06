@@ -11,10 +11,10 @@ filt =['county_id','birth_age','party_cd','gender_code','race_code','birth_state
 datavoter = factorize.factorize(retrieve_data.getData("./data/ncvoter_Statewide.txt", "./data/ncvoter_Statewide.pickle", filt=filt))
 print("Done!")
 
-print(datavoter['party_cd'])
+parties = [1,2]
 
-X = datavoter[['county_id','birth_age','gender_code','race_code','birth_state']]
-y = to_categorical(datavoter['party_cd'])
+X = datavoter[datavoter.party_cd.isin(parties)][['county_id','birth_age','gender_code','race_code','birth_state']]
+y = datavoter[datavoter.party_cd.isin(parties)]['party_cd'] - 1
 
 print(X, y)
 
